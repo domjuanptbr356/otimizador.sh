@@ -1,0 +1,41 @@
+#!/bin/bash
+# ==========================================
+# DOM-UNIVERSAL-OPTIMIZER V3.0 PRO
+# Criado por: Dom Juan (domjuanptbr356)
+# ==========================================
+
+clear
+echo "=========================================="
+echo "   SELECT YOUR LANGUAGE / IDIOMA:         "
+echo "=========================================="
+echo -e "1) 🇧🇷 Português   2) 🇺🇸 English      3) 🇪🇸 Español"
+echo -e "4) 🇫🇷 Français    5) 🇩🇪 Deutsch      6) 🇮🇹 Italiano"
+echo -e "7) 🇷🇺 Русский     8) 🇨🇳 中文         9) 🇯🇵 日本語"
+echo -e "10) 🇸🇦 العربية"
+echo "=========================================="
+read -p "Option [1-10]: " lang
+
+case $lang in
+    1) msg="PC pronto para o game!";;
+    2) msg="PC ready for the game!";;
+    3) msg="¡PC listo para el juego!";;
+    4) msg="PC prêt pour le jeu!";;
+    5) msg="PC bereit für das Spiel!";;
+    6) msg="PC pronto per il gioco!";;
+    7) msg="ПК готов к игре!";;
+    8) msg="电脑已经准备好游戏了!";;
+    9) msg="PCでゲームの準備ができました!";;
+    10) msg="الكمبيوتر جاهز للعبة!";;
+    *) msg="PC Ready!";;
+esac
+
+# Otimização Real
+sudo sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
+sudo sysctl -w vm.swappiness=10 > /dev/null
+
+# Automação "Executa uma vez e nunca mais"
+if ! crontab -l 2>/dev/null | grep -q "otimizador.sh"; then
+    (crontab -l 2>/dev/null; echo "@reboot $(pwd)/otimizador.sh") | crontab -
+fi
+
+echo -e "\n$msg"
